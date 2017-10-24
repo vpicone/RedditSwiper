@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  color: #42424F;
+  font-family: sans-serif;
+}
+
+button {
+  font-weight: normal;
+  color: #444;
+  min-width: 90px;
+  padding: 5px;
+  background-color: #fdfdfd;
+  border: 1px solid #cdcdcd;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+a {
+  text-decoration: none;
+}
