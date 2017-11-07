@@ -14,7 +14,6 @@ export default (props) => {
 
   const trimTitle = (titleString, length) => {
     if (titleString.length > length) {
-      console.log('trimming...');
       return `${titleString.substring(0, length)}...`;
     }
     return titleString;
