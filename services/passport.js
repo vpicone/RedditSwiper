@@ -10,7 +10,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id).then((user) => {
+  User.findById(id).then(user => {
     done(null, user);
   });
 });
@@ -21,7 +21,7 @@ passport.use(
       clientID: keys.redditClientID,
       clientSecret: keys.redditClientSecret,
       callbackURL: '/auth/reddit/callback',
-      scope: ['history', 'save'],
+      scope: ['history', 'save', 'read'],
       state: true,
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -31,7 +31,7 @@ passport.use(
       }
       const user = await new User({
         redditId: profile.id,
-        accessToken,
+        // accessToken,
         refreshToken,
         profile,
       }).save();

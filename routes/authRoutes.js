@@ -3,7 +3,10 @@ const crypto = require('crypto');
 const keys = require('../config/keys');
 
 module.exports = (app) => {
-  app.get('/auth/reddit', passport.authenticate('reddit'));
+  app.get(
+    '/auth/reddit',
+    passport.authenticate('reddit', { duration: 'permanent' }),
+  );
 
   app.get('/login', (req, res) => {
     res.send(JSON.stringify(req.body));

@@ -15,7 +15,7 @@ async function requireSnoo(req, res, next) {
   }
 }
 
-module.exports = (app) => {
+module.exports = app => {
   app.get('/api/posts', requireSnoo, async (req, res, next) => {
     try {
       const posts = await req.snoo.getMe().getSavedContent({ limit: 10 });
@@ -40,11 +40,23 @@ module.exports = (app) => {
 
   app.post('/api/posts/unsave', requireSnoo, async (req, res, next) => {
     try {
-      const deletePromise = Promise.all(
-        req.body.unsavedPosts.map(id => req.snoo.getSubmission(id).unsave()),
-      );
-      const deleteResult = await deletePromise;
-      res.json(deleteResult);
+      const post = await req.snoo.getSubmission(req.body.postId).unsave();
+      // const deletedPost = await req.snoo.getSubmission(req.body.postId).id;
+      console.log(post);
+      res.json(post);
+      //return ID not result
+    } catch (e) {
+      next(e);
+    }
+  });
+
+  app.post('/api/posts/save', requireSnoo, async (req, res, next) => {
+    try {
+      console.log(req.body.postId);
+      const saveResult = await req.snoo.getSubmission(req.body.postId).save();
+      const saveBody = await req.snoo.getSubmission(req.body.postId).fetch();
+      res.json(saveBody);
+      console.log(saveBody);
     } catch (e) {
       next(e);
     }

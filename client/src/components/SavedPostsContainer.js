@@ -1,44 +1,88 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import axios from 'axios';
 import SavedPost from './SavedPost';
-import LandingPage from './LandingPage';
 
-const Container = styled.div`
-  display: flex;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-`;
-
-class SavedPostsList extends Component {
+class SavedPostsContainer extends Component {
   constructor() {
     super();
     this.state = {
       posts: [],
       keptPosts: [],
       unsavedPosts: [],
+      lastActions: [],
       morePosts: true,
     };
 
-    this.permanentlyUnsavePosts = this.permanentlyUnsavePosts.bind(this);
+    this.undoLastAction = this.undoLastAction.bind(this);
+    this.unsavePost = this.unsavePost.bind(this);
   }
 
-  unsavePost = post => {
-    this.setState(prevState => {
-      return { unsavedPosts: [...prevState.unsavedPosts, post] };
+  async unsavePost(post) {
+    const unsaveResponse = await axios.post('/api/posts/unsave', {
+      postId: post.name,
     });
-  };
+
+    const unsavedPostName = unsaveResponse.data.name;
+
+    this.setState(prevState => {
+      if (unsavedPostName) {
+        return {
+          unsavedPosts: [...prevState.unsavedPosts, unsavedPostName],
+          lastActions: [...prevState.lastActions, 'unsaved'],
+          posts: prevState.posts.slice(1),
+        };
+      }
+
+      return null;
+    });
+  }
 
   keepPost = post => {
     this.setState(prevState => {
-      return { keptPosts: [...prevState.keptPosts, post] };
+      return {
+        keptPosts: [...prevState.keptPosts, post],
+        posts: [...prevState.posts.slice(1)],
+        lastActions: [...prevState.lastActions, 'kept'],
+      };
     });
   };
 
-  resavePosts = () => {
-    this.setState({ unsavedPosts: [] });
-  };
+  async undoLastAction() {
+    let post;
+    const lastAction = this.state.lastActions[
+      this.state.lastActions.length - 1
+    ];
+    const lastKeptPost = this.state.keptPosts[this.state.keptPosts.length - 1];
+    const lastUnsavedPost = this.state.unsavedPosts[
+      this.state.unsavedPosts.length - 1
+    ];
+
+    if (lastAction === 'kept') {
+      post = lastKeptPost;
+    } else if (lastAction === 'unsave') {
+      const { data } = await axios.post('/api/posts/save', {
+        postId: lastUnsavedPost,
+      });
+      post = data;
+    }
+
+    this.setState(({ unsavedPosts, keptPosts, lastActions, posts }) => {
+      if (post && lastAction === 'kept') {
+        return {
+          lastActions: lastActions.slice(0, -1),
+          keptPosts: keptPosts.slice(0, -1),
+          posts: [post, ...posts],
+        };
+      } else if (post && lastAction === 'unsave') {
+        return {
+          lastActions: [...lastActions.slice(0, -1)],
+          unsavedPosts: [...unsavedPosts.slice(0, -1)],
+          posts: [post, ...posts],
+        };
+      }
+      return null;
+    });
+  }
 
   async fetchMorePosts() {
     const lastPostIndex = this.state.posts.length - 1;
@@ -55,60 +99,28 @@ class SavedPostsList extends Component {
     }
   }
 
-  async permanentlyUnsavePosts() {
-    const { unsavedPosts } = this.state;
-    const unsaveResponse = await axios.post('/api/posts/unsave', {
-      unsavedPosts,
-    });
-    this.setState(prevState => {
-      const unsavedPostNames = unsaveResponse.data.map(e => e.name);
-      const remainingPosts = prevState.posts.filter(
-        element => !unsavedPostNames.includes(element.name),
-      );
-      return { posts: remainingPosts, unsavedPosts: [] };
-    });
-  }
-
   renderPosts() {
     const undeletedPosts = this.state.posts.filter(post => {
       return (
         !this.state.unsavedPosts.includes(post.name) &&
-        !this.state.keptPosts.includes(post.name)
+        !this.state.keptPosts.map(e => e.name).includes(post.name)
       );
     });
 
-    if (undeletedPosts.length === 0) {
+    if (undeletedPosts.length === 0 && this.state.username) {
       return <h1>No more saved content.</h1>;
     }
     if (undeletedPosts.length < 10 && this.state.morePosts) {
       this.fetchMorePosts();
     }
-
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <h2>Unsaved Posts: {this.state.unsavedPosts.length}</h2>
-        <SavedPost
-          post={undeletedPosts[0]}
-          permanentlyUnsavePosts={this.permanentlyUnsavePosts}
-          keepPost={this.keepPost}
-          unsavePost={this.unsavePost}
-        />
-        <LandingPage />
-      </div>
+      <SavedPost
+        post={undeletedPosts[0]}
+        undoLastAction={this.undoLastAction}
+        keepPost={this.keepPost}
+        unsavePost={this.unsavePost}
+      />
     );
-  }
-
-  renderLoading() {
-    if (this.props.username) {
-      return <h1>Loading</h1>;
-    }
-    return '';
   }
 
   async componentDidMount() {
@@ -118,12 +130,12 @@ class SavedPostsList extends Component {
   }
 
   render() {
-    const { posts } = this.state;
-    if (posts[0] == null) {
+    const { posts, username } = this.state;
+    if (!posts[0]) {
       return <h2>Loading...</h2>;
     }
-    return <Container>{this.renderPosts()}</Container>;
+    return <div>{this.renderPosts()}</div>;
   }
 }
 
-export default SavedPostsList;
+export default SavedPostsContainer;

@@ -1,8 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const SVG = styled.img.attrs({
-  width: props => props.width || '4rem',
+  className: 'no-border',
+  width: props => props.width || '3rem',
 })`
   width: ${props => props.width};
   margin: 0 1rem;

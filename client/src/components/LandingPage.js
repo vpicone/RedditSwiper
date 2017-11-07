@@ -13,20 +13,20 @@ const LandingContainer = styled.div`
 
 const ImageContainer = styled.div`flex-direction: column;`;
 
-export default () => {
+export default props => {
   return (
     <LandingContainer>
       <ImageContainer>
         <SVG src={LeftArrow} text="unsave" />
-        <p>unsave</p>
+        <h5>unsave</h5>
       </ImageContainer>
       <ImageContainer>
         <SVG src={RightArrow} text="keep saved" />
-        <p>keep saved</p>
+        <h5>keep</h5>
       </ImageContainer>
       <ImageContainer>
         <SVG src={U} text="undo" />
-        <p>undo</p>
+        <h5>undo</h5>
       </ImageContainer>
     </LandingContainer>
   );
