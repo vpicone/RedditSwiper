@@ -1,6 +1,4 @@
 const passport = require('passport');
-const crypto = require('crypto');
-const keys = require('../config/keys');
 
 module.exports = (app) => {
   app.get(

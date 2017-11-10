@@ -3,11 +3,12 @@ import styled from 'styled-components';
 const PaperContainer = styled.div.attrs({
   className: 'paper container',
 })`
-  padding-bottom: 0;
+  padding: 0.5rem;
+  margin-top: 2rem;
+  background: white;
   @media (max-width: 768px) {
-    width: 100%;
-    height: 100%;
-    margin 0px;
+    margin-top: 0rem;
+    min-height: 100vh;
   }
 `;
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ShortcutsContainer = styled.div.attrs({
+const DesktopContainer = styled.div.attrs({
   className: 'shadow shadow-hover background-primary',
   popover: "Press the 'u' key to undo",
-  popoverPosition: 'left',
+  popoverposition: 'left',
 })`
   position: absolute;
   top: 0.5rem;
@@ -15,7 +15,7 @@ const ShortcutsContainer = styled.div.attrs({
 `;
 
 export default () => (
-  <ShortcutsContainer>
+  <DesktopContainer>
     <span style={{ lineHeight: '2.1rem' }}>?</span>
-  </ShortcutsContainer>
+  </DesktopContainer>
 );

@@ -3,13 +3,9 @@ import ReactDOM from 'react-dom';
 import './styles/paper.min.css';
 import './styles/index.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
-import registerServiceWorker from './registerServiceWorker';
+// import { BrowserRouter } from 'react-router-dom';
+// import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 
-ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root'),
-);
-registerServiceWorker();
+unregister();
+ReactDOM.render(<App />, document.getElementById('root'));

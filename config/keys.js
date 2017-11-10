@@ -1,8 +1,8 @@
-//keys.js figure out which set to return
+// keys.js figure out which set to return
 if (process.env.NODE_ENV === 'production') {
-  //prod keys
+  // prod keys
   module.exports = require('./prod');
 } else {
-  //dev keys
+  // dev keys
   module.exports = require('./dev');
 }

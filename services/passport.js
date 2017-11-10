@@ -22,7 +22,9 @@ passport.use(
       clientSecret: keys.redditClientSecret,
       callbackURL: '/auth/reddit/callback',
       scope: ['history', 'save', 'read'],
+      authorizationURL: 'https://ssl.reddit.com/api/v1/authorize.compact',
       state: true,
+      proxy: true,
     },
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOne({ redditId: profile.id });

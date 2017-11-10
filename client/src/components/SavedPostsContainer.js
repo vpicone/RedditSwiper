@@ -130,7 +130,7 @@ class SavedPostsContainer extends Component {
   }
 
   render() {
-    const { posts, username } = this.state;
+    const { posts } = this.state;
     if (!posts[0]) {
       return <h2>Loading...</h2>;
     }

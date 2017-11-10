@@ -1,0 +1,12 @@
+{
+  "env": {
+    "REDDIT_CLIENT_ID": "@redditclientid",
+    "REDDIT_USER_AGENT": "@reddituseragent",
+    "REDDIT_CLIENT_SECRET": "@redditclientsecret",
+    "MONGOOSE_URI": "@snooswiper_mongooseuri",
+    "COOKIE_KEY": "@snooswiper_cookiekey",
+    "REDIRECT_DOMAIN": "@snooswiper_redirectdomain",
+    "NODE_ENV": "production"
+  },
+  "alias": ["snooswiper.com", "www.snooswiper.com"]
+}

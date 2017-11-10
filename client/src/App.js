@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route } from 'react-router-dom';
 import SavedPostsContainer from './components/SavedPostsContainer';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Shortcuts from './components/Shortcuts';
 import LoginButton from './components/LoginButton';
 import PaperContainer from './components/PaperContainer';
+import styled from 'styled-components';
+// import SwipeableComponent from './components/SwipeableComponent';
+//TODO: add shake to undo adjust ? button add animations
+
+const AppContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    margin: 0%;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -33,26 +45,23 @@ class App extends Component {
 
   render() {
     return (
-      <PaperContainer>
-        <Shortcuts />
-        <Header username={this.state.username} />
-        {!this.state.hideLoginButton ? (
-          <LoginButton />
-        ) : (
-          <Route
-            path="/"
-            render={() => (
-              <SavedPostsContainer
-                togglePostsLoaded={this.togglePostsLoaded}
-                username={this.state.username}
-              />
-            )}
-          />
-        )}
-        <Footer>
-          Made with ❤ by <a href="https://www.github.com/vpicone">VPP</a>
-        </Footer>
-      </PaperContainer>
+      <AppContainer>
+        <PaperContainer>
+          <Shortcuts />
+          <Header username={this.state.username} />
+          {!this.state.hideLoginButton ? (
+            <LoginButton />
+          ) : (
+            <SavedPostsContainer
+              togglePostsLoaded={this.togglePostsLoaded}
+              username={this.state.username}
+            />
+          )}
+          <Footer>
+            Made with ❤ by <a href="https://www.github.com/vpicone">VPP</a>
+          </Footer>
+        </PaperContainer>
+      </AppContainer>
     );
   }
 }

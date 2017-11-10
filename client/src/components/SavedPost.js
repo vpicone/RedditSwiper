@@ -17,19 +17,6 @@ class SavedPost extends Component {
     if (e.keyCode === 85) this.props.undoLastAction();
   };
 
-  renderPreviewImage = () => {
-    const { preview, title } = this.props.post;
-    const largestResolution = preview.images[0].resolutions.length - 1;
-    return (
-      <img
-        style={{ maxHeight: '80%' }}
-        className="no-responsive"
-        alt={`for ${title}`}
-        src={[preview.images[0].resolutions[largestResolution].url]}
-      />
-    );
-  };
-
   render() {
     const { post } = this.props;
     const comment = post.name.slice(0, 2) === 't1';

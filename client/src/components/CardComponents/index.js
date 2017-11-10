@@ -4,4 +4,4 @@ export { default as Title } from './Title';
 export { default as Detail } from './Detail';
 export { default as Body } from './Body';
 export { default as SelfText } from './SelfText';
-export { default as ControlBar } from './ControlBar';
+export { default as ControlButtons } from './ControlButtons';
