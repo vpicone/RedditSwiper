@@ -26,12 +26,14 @@ class SavedPost extends Component {
           <CommentCard
             unsavePost={this.props.unsavePost}
             keepPost={this.props.keepPost}
+            undoLastAction={this.props.undoLastAction}
             post={post}
           />
         ) : (
           <LinkCard
             unsavePost={this.props.unsavePost}
             keepPost={this.props.keepPost}
+            undoLastAction={this.props.undoLastAction}
             post={post}
           />
         )}

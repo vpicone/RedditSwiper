@@ -24,7 +24,7 @@ export default (props) => {
   if (username) {
     return (
       <div style={{ maxWidth: '100%' }}>
-        <Title>SnooSwiper</Title>
+        <Title>Snoo Swiper</Title>
         <SubTitle>
           /u/{username}
           <a
@@ -39,5 +39,9 @@ export default (props) => {
     );
   }
 
-  return <h1>Reddit Swiper</h1>;
+  return (
+    <h1>
+      Snoo<br />Swiper
+    </h1>
+  );
 };
