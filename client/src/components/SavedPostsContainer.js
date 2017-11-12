@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import debounce from 'lodash.debounce';
 import axios from 'axios';
 import SavedPost from './SavedPost';
 
@@ -13,14 +14,18 @@ class SavedPostsContainer extends Component {
       morePosts: true,
     };
 
-    this.undoLastAction = this.undoLastAction.bind(this);
-    this.unsavePost = this.unsavePost.bind(this);
+    // this.undoLastAction = this.undoLastAction.bind(this);
+    // this.unsavePost = this.unsavePost.bind(this);
   }
 
-  async unsavePost(post) {
-    const unsaveResponse = await axios.post('/api/posts/unsave', {
-      postId: post.name,
-    });
+  unsavePost = debounce(async post => {
+    const unsaveResponse = await axios.post(
+      '/api/posts/unsave',
+      {
+        postId: post.name,
+      },
+      100,
+    );
 
     const unsavedPostName = unsaveResponse.data.name;
 
@@ -35,9 +40,9 @@ class SavedPostsContainer extends Component {
 
       return null;
     });
-  }
+  }, 100);
 
-  keepPost = post => {
+  keepPost = debounce(post => {
     this.setState(prevState => {
       return {
         keptPosts: [...prevState.keptPosts, post],
@@ -45,9 +50,9 @@ class SavedPostsContainer extends Component {
         lastActions: [...prevState.lastActions, 'kept'],
       };
     });
-  };
+  }, 100);
 
-  async undoLastAction() {
+  undoLastAction = debounce(async () => {
     let post;
     const lastAction = this.state.lastActions[
       this.state.lastActions.length - 1
@@ -82,7 +87,7 @@ class SavedPostsContainer extends Component {
       }
       return null;
     });
-  }
+  }, 100);
 
   async fetchMorePosts() {
     const lastPostIndex = this.state.posts.length - 1;
@@ -107,8 +112,8 @@ class SavedPostsContainer extends Component {
       );
     });
 
-    if (undeletedPosts.length === 0 && this.state.username) {
-      return <h1>No more saved content.</h1>;
+    if (this.state.posts.length === 0) {
+      return <h2>No more saved content.</h2>;
     }
     if (undeletedPosts.length < 10 && this.state.morePosts) {
       this.fetchMorePosts();
@@ -131,7 +136,7 @@ class SavedPostsContainer extends Component {
 
   render() {
     const { posts } = this.state;
-    if (!posts[0]) {
+    if (!posts[0] && this.state.morePosts) {
       return <h2>Loading...</h2>;
     }
     return <div>{this.renderPosts()}</div>;
