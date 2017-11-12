@@ -58,7 +58,7 @@ class App extends Component {
             />
           )}
           <Footer>
-            Made with ❤ by <a href="https://www.github.com/vpicone">VPP</a>
+            Made with ❤ by <a href="https://www.vincepicone.com">VPP</a>
           </Footer>
         </PaperContainer>
       </AppContainer>

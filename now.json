@@ -8,5 +8,5 @@
     "REDIRECT_DOMAIN": "@snooswiper_redirectdomain",
     "NODE_ENV": "production"
   },
-  "alias": ["snooswiper.com", "www.snooswiper.com"]
+  "alias": "snooswiper.com"
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import MediaQuery from 'react-responsive';
 
 const SubTitle = styled.h3`
   font-size: 1.5rem;
@@ -40,8 +41,17 @@ export default (props) => {
   }
 
   return (
-    <h1>
-      Snoo<br />Swiper
-    </h1>
+    <div>
+      <MediaQuery minDeviceWidth={1024}>
+      <h1>
+        Snoo Swiper
+      </h1>
+      </MediaQuery>
+      <MediaQuery maxDeviceWidth={1023}>
+      <h1>
+        Snoo<br />Swiper
+      </h1>
+      </MediaQuery>
+    </div>
   );
 };

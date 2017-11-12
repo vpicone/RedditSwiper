@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "snooswiper",
+  "version": "1.0.0",
   "private": true,
   "proxy": {
     "/auth/reddit": {
@@ -11,27 +11,15 @@
     }
   },
   "dependencies": {
-    "axios": "^0.16.2",
-    "babel-eslint": "^7.2.3",
-    "eslint": "^4.9.0",
-    "eslint-plugin-flowtype": "^2.39.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.4.0",
+    "axios": "^0.17.1",
     "lodash.debounce": "^4.0.8",
-    "normalize.css": "^7.0.0",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-animations": "^1.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.1.0",
+    "react-dom": "^16.1.0",
     "react-responsive": "^3.0.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
+    "react-scripts": "1.0.17",
     "react-swipeable": "^4.2.0",
-    "react-transition-group": "^2.2.1",
-    "shake.js": "^1.2.2",
-    "snoowrap": "^1.14.2",
-    "styled-components": "^2.2.1"
+    "styled-components": "^2.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
