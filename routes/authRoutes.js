@@ -6,10 +6,6 @@ module.exports = app => {
     passport.authenticate("reddit", { duration: "permanent" })
   );
 
-  app.get("/login", (req, res) => {
-    res.send(JSON.stringify(req.body));
-  });
-
   app.get(
     "/auth/reddit/callback",
     passport.authenticate("reddit", { failureRedirect: "/login" }),
@@ -24,7 +20,7 @@ module.exports = app => {
     res.redirect("/");
   });
 
-  app.get("/api/current_user", async (req, res) => {
+  app.post("/api/current_user", async (req, res) => {
     if (req.user) {
       res.json(req.user);
     } else {

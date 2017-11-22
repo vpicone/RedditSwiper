@@ -28,7 +28,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await axios.get("/api/current_user");
+    const { data } = await axios.post("/api/current_user");
     if (data) {
       this.setState({
         username: data.profile.name,
