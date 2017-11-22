@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import MediaQuery from 'react-responsive';
+import React from "react";
+import styled from "styled-components";
+import MediaQuery from "react-responsive";
 
 const SubTitle = styled.h3`
   font-size: 1.5rem;
@@ -19,22 +19,27 @@ const Title = styled.h1`
   }
 `;
 
-export default (props) => {
+export default props => {
   const { username } = props;
 
   if (username) {
     return (
-      <div style={{ maxWidth: '100%' }}>
+      <div style={{ maxWidth: "100%" }}>
         <Title>Snoo Swiper</Title>
         <SubTitle>
           /u/{username}
-          <a
+          {/* <a
             style={{ marginLeft: '1rem' }}
             className="paper-btn"
             href="/api/logout"
           >
             logout
-          </a>
+          </a> */}
+          <form action="/api/logout" method="post">
+            <button style={{ marginLeft: "1rem" }} type="submit">
+              logout
+            </button>
+          </form>
         </SubTitle>
       </div>
     );
@@ -43,14 +48,12 @@ export default (props) => {
   return (
     <div>
       <MediaQuery minDeviceWidth={1024}>
-      <h1>
-        Snoo Swiper
-      </h1>
+        <h1>Snoo Swiper</h1>
       </MediaQuery>
       <MediaQuery maxDeviceWidth={1023}>
-      <h1>
-        Snoo<br />Swiper
-      </h1>
+        <h1>
+          Snoo<br />Swiper
+        </h1>
       </MediaQuery>
     </div>
   );

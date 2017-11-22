@@ -1,8 +1,8 @@
-import React from 'react';
-import MediaQuery from 'react-responsive';
+import React from "react";
+import MediaQuery from "react-responsive";
 
 export default props => (
-  <div style={{ textAlign: 'center' }}>
+  <div style={{ textAlign: "center" }}>
     <MediaQuery minWidth={769}>
       <button
         className="margin-small"
@@ -21,6 +21,5 @@ export default props => (
         Save
       </button>
     </MediaQuery>
-    <MediaQuery maxWidth={768}>Swipe right to keep, left to unsave.</MediaQuery>
   </div>
 );

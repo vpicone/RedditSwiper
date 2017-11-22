@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import SavedPostsContainer from './components/SavedPostsContainer';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Shortcuts from './components/Shortcuts';
-import LoginButton from './components/LoginButton';
-import PaperContainer from './components/PaperContainer';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import axios from "axios";
+import SavedPostsContainer from "./components/SavedPostsContainer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Shortcuts from "./components/Shortcuts";
+import LoginButton from "./components/LoginButton";
+import PaperContainer from "./components/PaperContainer";
+import styled from "styled-components";
 // import SwipeableComponent from './components/SwipeableComponent';
 //TODO: add shake to undo adjust ? button add animations
 
@@ -24,15 +24,15 @@ class App extends Component {
   state = {
     username: null,
     postsLoaded: false,
-    hideLoginButton: false,
+    hideLoginButton: false
   };
 
   async componentDidMount() {
-    const { data } = await axios.get('/api/current_user');
+    const { data } = await axios.get("/api/current_user");
     if (data) {
       this.setState({
         username: data.profile.name,
-        hideLoginButton: true,
+        hideLoginButton: true
       });
     } else this.setState({ hideLoginButton: false });
   }
@@ -47,7 +47,7 @@ class App extends Component {
     return (
       <AppContainer>
         <PaperContainer>
-          <Shortcuts />
+          {this.state.username ? <Shortcuts /> : null}
           <Header username={this.state.username} />
           {!this.state.hideLoginButton ? (
             <LoginButton />
