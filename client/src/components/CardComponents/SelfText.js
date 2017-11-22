@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const SelfText = (props) => {
-  const sentences = props.children.split('.');
+const SelfText = props => {
+  const sentences = props.children.split(".");
   const sentenceNumber = sentences.length >= 3 ? 3 : sentences.length;
   if (sentences.length === 1) {
-    return <p className="card-text" />;
+    return <p className="card-text">{props.children}</p>;
   }
   return (
     <p className="card-text">
@@ -12,7 +12,7 @@ const SelfText = (props) => {
         .slice(0, sentenceNumber)
         .map(
           (sentence, index) =>
-            `${sentence}${index === sentenceNumber - 1 ? '...' : '.'}`,
+            `${sentence}${index === sentenceNumber - 1 ? "..." : "."}`
         )}
     </p>
   );

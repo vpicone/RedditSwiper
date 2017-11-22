@@ -1,14 +1,22 @@
-import React, { Component } from 'react';
-import CommentCard from './CommentCard';
-import LinkCard from './LinkCard';
+import React, { Component } from "react";
+import CommentCard from "./CommentCard";
+import LinkCard from "./LinkCard";
+import styled, { keyframes } from "styled-components";
+import { fadeIn } from "react-animations";
+
+const fadeInAnimation = keyframes`${fadeIn}`;
+
+const FadeIn = styled.div`
+  animation: 1s ${fadeInAnimation};
+`;
 
 class SavedPost extends Component {
   componentWillMount() {
-    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
   }
 
   handleKeyDown = e => {
@@ -19,25 +27,27 @@ class SavedPost extends Component {
 
   render() {
     const { post } = this.props;
-    const comment = post.name.slice(0, 2) === 't1';
+    const comment = post.name.slice(0, 2) === "t1";
     return (
-      <div className="row flex-center" onKeyDown={this.handleKeyDown}>
-        {comment ? (
-          <CommentCard
-            unsavePost={this.props.unsavePost}
-            keepPost={this.props.keepPost}
-            undoLastAction={this.props.undoLastAction}
-            post={post}
-          />
-        ) : (
-          <LinkCard
-            unsavePost={this.props.unsavePost}
-            keepPost={this.props.keepPost}
-            undoLastAction={this.props.undoLastAction}
-            post={post}
-          />
-        )}
-      </div>
+      <FadeIn>
+        <div className="row flex-center" onKeyDown={this.handleKeyDown}>
+          {comment ? (
+            <CommentCard
+              unsavePost={this.props.unsavePost}
+              keepPost={this.props.keepPost}
+              undoLastAction={this.props.undoLastAction}
+              post={post}
+            />
+          ) : (
+            <LinkCard
+              unsavePost={this.props.unsavePost}
+              keepPost={this.props.keepPost}
+              undoLastAction={this.props.undoLastAction}
+              post={post}
+            />
+          )}
+        </div>
+      </FadeIn>
     );
   }
 }
