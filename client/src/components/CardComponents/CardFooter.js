@@ -9,7 +9,7 @@ const UndoButton = props => {
         popover="'u' key"
         popoverposition="left"
         onClick={() => props.undoLastAction()}
-        className="btn-medium"
+        className="btn-small"
       >
         undo
       </button>

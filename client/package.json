@@ -20,9 +20,11 @@
     "react": "^16.1.0",
     "react-animations": "^1.0.0",
     "react-dom": "^16.1.0",
+    "react-markdown": "^3.0.1",
     "react-responsive": "^3.0.0",
     "react-scripts": "1.0.17",
     "react-swipeable": "^4.2.0",
+    "showdown": "^1.8.2",
     "styled-components": "^2.2.3"
   },
   "scripts": {
