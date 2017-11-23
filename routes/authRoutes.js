@@ -7,7 +7,7 @@ module.exports = app => {
   );
 
   app.get(
-    "/auth/reddit/callback",
+    "/auth/callback",
     passport.authenticate("reddit", { failureRedirect: "/login" }),
     (req, res) => {
       // Successful authentication, redirect home.

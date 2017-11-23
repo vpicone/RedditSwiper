@@ -1,9 +1,9 @@
-const passport = require('passport');
-const RedditStrategy = require('passport-reddit').Strategy;
-const mongoose = require('mongoose');
+const passport = require("passport");
+const RedditStrategy = require("passport-reddit").Strategy;
+const mongoose = require("mongoose");
 
-const User = mongoose.model('users');
-const keys = require('../config/keys');
+const User = mongoose.model("users");
+const keys = require("../config/keys");
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -20,11 +20,11 @@ passport.use(
     {
       clientID: keys.redditClientID,
       clientSecret: keys.redditClientSecret,
-      callbackURL: '/auth/reddit/callback',
-      scope: ['history', 'save', 'read'],
-      authorizationURL: 'https://ssl.reddit.com/api/v1/authorize.compact',
+      callbackURL: "/auth/callback",
+      scope: ["history", "save", "read"],
+      authorizationURL: "https://ssl.reddit.com/api/v1/authorize.compact",
       state: true,
-      proxy: true,
+      proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOne({ redditId: profile.id });
@@ -35,9 +35,9 @@ passport.use(
         redditId: profile.id,
         // accessToken,
         refreshToken,
-        profile,
+        profile
       }).save();
       done(null, user);
-    },
-  ),
+    }
+  )
 );
